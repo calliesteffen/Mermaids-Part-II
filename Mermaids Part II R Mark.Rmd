@@ -14,12 +14,42 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
 library(pwr)
-
+library(kableExtra)
+library(knitr)
+library(plotly)
+library(ggplot2)
+library(car)
+library(onewaytests)
+library(vcdExtra)
+library(xtable)
+library(ggsignif)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
 
 ###Reading in csv files
 faculty<-read_csv("faculty.csv")
 grad_enroll<-read_csv("grad_enrollment.csv")
 salary<-read_csv("mediansalary.csv")
 phD<-read_csv("PhD.csv")
+```
+
+
+1) Male and female graduate enrollment (1967 - 2015). Compare trends in total graduate enroll- ment for males and females (including full-time/part-time and private/public universities) in the United States from 1967 - 2015. Describe your results statistically, graphically and in text.
+```{r}
+
+female_linegraph <-ggplot(grad_enroll, aes(x=Year, y=Total_Females))+
+  geom_line(color="blue")+
+  ggtitle("Total Females Enrolled 1967-2015")+
+  ylab("Total Females Enrolled")+
+  theme_linedraw()
+
+female_linegraph
+
+
+
+  
+
+
 ```
 
