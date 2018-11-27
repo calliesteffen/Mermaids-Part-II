@@ -1,0 +1,25 @@
+---
+title: "Mermaids Part II"
+author: "Callie Steffen, Vanessa Guenther, Renee Albreight"
+date: "11/26/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#loading packages
+library(tidyverse)
+library(ggplot2)
+library(pwr)
+
+
+###Reading in csv files
+faculty<-read_csv("faculty.csv")
+grad_enroll<-read_csv("grad_enrollment.csv")
+salary<-read_csv("mediansalary.csv")
+phD<-read_csv("PhD.csv")
+```
+
