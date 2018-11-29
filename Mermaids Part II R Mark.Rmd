@@ -118,8 +118,31 @@ linegraph_phD
 ```
 
 
-  
+#Exploring academic salaries for professors in U.S. colleges.
 
+```{r}
+
+fac_salary <- read_csv("faculty_salary.csv")
+
+#Linear Model 1
+
+salary_lm1 <- lm(Salary ~ Sex + Years_Faculty_Service + Rank + Years_Since_PhD + Discipline, data = fac_salary)
+
+summary(salary_lm1)
+
+plot(salary_lm1)
+
+
+
+```
+```{r}
+
+#linear model 2
+salary_lm2 <- lm(Salary ~ Sex + Rank + Years_Since_PhD + Discipline, data = fac_salary)
+
+summary(salary_lm2)
+
+plot(salary_lm2)
 
 ```
 
