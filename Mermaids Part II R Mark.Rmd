@@ -50,6 +50,43 @@ male_female_linegraph<- ggplot(grad_enroll, aes(Year)) +
 male_female_linegraph
 
 
+##Regression for  enrollment on year FOR MALES
+
+regression_male_year <- lm(Total_Males~Year, data=grad_enroll)
+
+regression_male_year
+
+##-17112153+9069(year)
+
+
+plot(regression_male_year)
+
+summary(regression_male_year)
+##Multiple R-squared:  0.8545,	Adjusted R-squared:  0.8514 
+##F-statistic:   276 on 1 and 47 DF,  p-value: < 2.2e-16
+
+AIC(regression_male_year)
+#1210
+
+
+##Regression for enrollment on year FOR FEMALES
+
+regression_female_year <- lm(Total_Females~Year, data = grad_enroll)
+##(Intercept) -17112153 9069 year
+
+plot(regression_female_year)
+
+summary(regression_female_year)
+##Multiple R-squared:  0.9827,	Adjusted R-squared:  0.9823 
+##F-statistic:  2669 on 1 and 47 DF,  p-value: < 2.2e-16
+
+
+AIC(regression_female_year)
+##1217
+
+
+##COrrelation between year and sex of enrollment
+
 
 ```
 
@@ -67,9 +104,11 @@ female_column<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS))+
 female_column
 
 linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
-  geom_line(aes(fill=MAJOR), size=1.5) +
+  geom_line(aes(fill=MAJOR), size=1) +
   scale_x_continuous(expand = c(0,0), limits=c(1985,2015), breaks = c(1985,2000,2015))+
-  scale_y_continuous(expand = c(0,0), limits=c(150,4650),breaks=c(150,650,1150,1650,2150,2650,3150,3650,4150,4650))
+  scale_y_continuous(expand = c(0,0), limits=c(150,4650),breaks=c(150,650,1150,1650,2150,2650,3150,3650,4150,4650)) +
+  ylab("Total Female PhDs") +
+  theme_classic()
 
 
 linegraph_phD
