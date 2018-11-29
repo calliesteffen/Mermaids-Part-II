@@ -72,12 +72,28 @@ linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   scale_y_continuous(expand = c(0,0), limits=c(150,4650),breaks=c(150,650,1150,1650,2150,2650,3150,3650,4150,4650))
 
 
-linegraph_phD
+linegraph_phD   
 
 
 
 ```
 
+#3
+```{r}
+salaries <- read.csv("EP.csv")
+
+View(salaries)
+
+sumamry table - median salaries and compare ? 
+
+hist_ls <- ggplot(ep_salaries, aes(x = P_Female))+
+  geom_bar()
+
+hist_ls
+
+two seperate data sets-  emplyment     post (male female) keep places - paired - wilkston werksin test - kermit code 
+
+```
 
   
 
