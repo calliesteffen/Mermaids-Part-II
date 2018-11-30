@@ -46,6 +46,7 @@ male_female_linegraph<- ggplot(grad_enroll, aes(Year)) +
   scale_y_continuous(expand = c(0,0), limits=c(250000,2000000),breaks=c(250000,500000,750000,1000000,1250000,1500000,1750000,2000000)) +
    ylab("Number of Students Enrolled") +
   theme_classic()
+  
 
 male_female_linegraph
 
@@ -68,6 +69,35 @@ summary(regression_male_year)
 AIC(regression_male_year)
 #1210
 
+male_pr<-cor.test(grad_enroll$Year, grad_enroll$Total_Males)
+
+male_pr
+
+###	Pearson's product-moment correlation
+
+##data:  grad_enroll$Year and grad_enroll$Total_Males
+#t = 16.612, df = 47, p-value < 2.2e-16
+#alternative hypothesis: true correlation is not equal to 0
+#95 percent confidence interval:
+# 0.8690777 0.9568547
+#sample estimates:
+#cor 
+#0.9243741 
+
+# a. Make predictions using the new data frame:
+
+price_predict <- predict(regression_male_year, newdata = df_new, se.fit = TRUE, interval="confidence")
+
+# b. Bind predictions to the data to make it actually useful:
+
+predict_df <- data.frame(df_new, price_predict)
+
+predict_df
+
+
+
+
+
 
 ##Regression for enrollment on year FOR FEMALES
 
@@ -84,7 +114,32 @@ summary(regression_female_year)
 AIC(regression_female_year)
 ##1217
 
+female_pr<-cor.test(grad_enroll$Year, grad_enroll$Total_Females)
 
+female_pr
+
+#Pearson's product-moment correlation
+
+#data:  grad_enroll$Year and grad_enroll$Total_Females
+#t = 51.659, df = 47, p-value < 2.2e-16
+#alternative hypothesis: true correlation is not equal to 0
+#95 percent confidence interval:
+# 0.9845609 0.9951144
+#sample estimates:
+      #cor 
+#0.9913086 
+
+
+#####SMOOTH LINE GRAPH????
+
+smooth <-ggplot(grad_enroll, aes(x =Year, y = Total_Males, color="green") ) +
+     geom_point() +
+     geom_smooth(method = "lm", se = TRUE)
+
+smooth
+
+
+male_pr<-cor.test(grad_enroll$Year, grad_enroll$Total_Males)
 ##COrrelation between year and sex of enrollment
 
 
