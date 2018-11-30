@@ -84,25 +84,14 @@ male_pr
 #cor 
 #0.9243741 
 
-# a. Make predictions using the new data frame:
-
-price_predict <- predict(regression_male_year, newdata = df_new, se.fit = TRUE, interval="confidence")
-
-# b. Bind predictions to the data to make it actually useful:
-
-predict_df <- data.frame(df_new, price_predict)
-
-predict_df
-
-
-
-
 
 
 ##Regression for enrollment on year FOR FEMALES
 
 regression_female_year <- lm(Total_Females~Year, data = grad_enroll)
 ##(Intercept) -17112153 9069 year
+
+regression_female_year
 
 plot(regression_female_year)
 
@@ -132,15 +121,25 @@ female_pr
 
 #####SMOOTH LINE GRAPH????
 
-smooth <-ggplot(grad_enroll, aes(x =Year, y = Total_Males, color="green") ) +
-     geom_point() +
-     geom_smooth(method = "lm", se = TRUE)
+smooth <-ggplot(grad_enroll, aes(x =Year, y = )) +
+  geom_point(aes(y=Total_Females, color="Total_Females"))+
+  geom_point(aes(y=Total_Males, color="Total_Males"))+
+  geom_smooth(method=lm, se=TRUE, size=.5, color="blue",aes(y=Total_Females)) +
+  geom_smooth(method=lm, se=TRUE, size=.5, color="blue",aes(y=Total_Males))+
+  ylab("Number of Graduate Students") +
+  theme (panel.grid.major = element_blank(),
+         panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black")) +
+scale_x_continuous(expand = c(0,0), limits = c(1965,2015), breaks = c(1965,1975,1985,1995,2005,2015))+
+  scale_y_continuous(expand = c(0,0), limits=c(250000,2000000),breaks=c(250000,500000,750000,1000000,1250000,1500000,1750000,2000000))+
+scale_color_discrete(name = " ") 
+        
+  
+
 
 smooth
 
 
-male_pr<-cor.test(grad_enroll$Year, grad_enroll$Total_Males)
-##COrrelation between year and sex of enrollment
+
 
 
 ```
@@ -166,80 +165,12 @@ linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   theme_classic()
 
 
-linegraph_phD   
+linegraph_phD
 
 
 
 ```
 
-#3
-```{r}
-
-#1. The two samples are independent of one another
-# The two populations have equal variance or spread
-
-# Read in two seperate data sets
-
-employment <- read_csv("Semployment2.csv")
-postdoc <- read_csv("Spostdoc2.csv")
-postdoc2 <- read_csv("Spostdoc.csv")
-employment2  <- read_csv("SEmployment.csv")
-
-#Explore data Employment 
-employment_hist <- ggplot(employment, aes(x = Salary))+
-  geom_histogram() +
-  facet_wrap(~ Gender)
-
-employment_hist
-
-# not ND 
-
-#Explore Data Postdoc
-
-postdoc_hist <- ggplot(postdoc, aes(x = Salary))+
-  geom_histogram() +
-  facet_wrap(~ Gender)
-
-postdoc_hist
-
-# not ND
-
-
-
-
-#is there a significant difference between male and female post-doc position salaries?
-#Wilcoxon Signed-Rank: Paired
-#he null hypothesis of the Wilcoxon test is usually taken as equal medians
-#If we reject the null, that means we have evidence that one distribution is shifted to the left or right of the other. Since we’re assuming our distributions are equal, rejecting the null means we have evidence that the medians of the two populations differ
-#(n=15)
-
-mwu_postdoc <- postdoc %>% 
-  wilcox.test(Salary ~ Gender, paired = TRUE, data = .)
-mwu_postdoc
-
-wsr_postdoc = wilcox.test(postdoc2$Male, postdoc2$Female, paired = TRUE)
-wsr_postdoc
-
-#No significant difference - distributions are equal
-# what is V!the sum of the ranks in one of both groups.
-
-
-#significant different in non-postdoc employment between males and females
-
-wsr_employment = wilcox.test(employment2$Male, employment2$Female, paired = TRUE)
-wsr_employment
-
-#There is a significant difference
-
-#EffectSize
-test <- cliff.delta(employment2$Male, employment2$Female)
-
-test
-
-# small effect size Cliff's Delta ( 0.213333) ? 0 -> groups are totally overlapping 
-
-
-```
 
 #Exploring academic salaries for professors in U.S. colleges.
 
