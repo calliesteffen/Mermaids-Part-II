@@ -117,6 +117,7 @@ postdoc_hist
 #Wilcoxon Signed-Rank: Paired
 #he null hypothesis of the Wilcoxon test is usually taken as equal medians
 #If we reject the null, that means we have evidence that one distribution is shifted to the left or right of the other. Since we’re assuming our distributions are equal, rejecting the null means we have evidence that the medians of the two populations differ
+#(n=15)
 
 mwu_postdoc <- postdoc %>% 
   wilcox.test(Salary ~ Gender, paired = TRUE, data = .)
@@ -126,7 +127,7 @@ wsr_postdoc = wilcox.test(postdoc2$Male, postdoc2$Female, paired = TRUE)
 wsr_postdoc
 
 #No significant difference - distributions are equal
-# what is V!
+# what is V!the sum of the ranks in one of both groups.
 
 
 #significant different in non-postdoc employment between males and females
@@ -134,7 +135,14 @@ wsr_postdoc
 wsr_employment = wilcox.test(employment2$Male, employment2$Female, paired = TRUE)
 wsr_employment
 
-#There is a significant difference 
+#There is a significant difference
+
+#EffectSize
+test <- cliff.delta(employment2$Male, employment2$Female)
+
+test
+
+# small effect size Cliff's Delta ( 0.213333) ? 0 -> groups are totally overlapping 
 
 
 ```
