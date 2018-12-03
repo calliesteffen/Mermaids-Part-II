@@ -230,18 +230,7 @@ e_graph
 #only use employment grah in 
 #Literature  ?
 
-xxxxxxxxxxxx
 
-postdoc_graph <- ggplot(postdoc, aes(x = Field, y = Salary ))+
-  geom_col(position = "dodge", aes(fill = Gender)) +
-  coord_flip()+
-  scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
-  labs(title = "Median Salaries in -PostDoc Positions", x = "Field", y = "Median Salary ($)") +  scale_fill_brewer(palette = "Pastel1", name = "Gender")+
-  theme_classic()
-
-postdoc_graph
-
-#Literature  ?
   
 
 ```
