@@ -166,8 +166,19 @@ linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   theme_classic()
 
 
-linegraph_phD
+linegraph_phD 
 
+carmel_chocolate<-read_csv("Chocolate .csv")
+
+##CHI TEST
+
+chi_female<-chisq.test(carmel_chocolate)
+
+chi_female
+ ##Pearson's Chi-squared test
+
+###data:  carmel_chocolate
+##X-squared = 2073.3, df = 6, p-value < 2.2e-16
 
 
 ```
