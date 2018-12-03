@@ -182,7 +182,7 @@ chi_female
 
 
 ```
-
+3#
 ```{r}
 
  #1. The two samples are independent of one another
@@ -216,16 +216,36 @@ mwu_postdoc
 wsr_postdoc
  #No significant difference - distributions are equal
 # what is V!the sum of the ranks in one of both groups.
+
  #significant different in non-postdoc employment between males and females
  wsr_employment = wilcox.test(employment2$Male, employment2$Female, paired = TRUE)
 wsr_employment
  #There is a significant difference
  #EffectSize
 test <- cliff.delta(employment2$Male, employment2$Female)
- test
-
+test
  # small effect size Cliff's Delta ( 0.213333) ? 0 -> groups are totally overlapping 
 ```
+Graph
+```{r}
+
+e_graph <- ggplot(employment, aes(x = Field, y = Salary ))+
+  geom_col(position = "dodge", aes(fill = Gender)) +
+  coord_flip()+
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
+  labs(title = "Median Salaries (Non-PostDoc Positions) ", y = "Median Salary ($)")+
+  theme_classic()
+
+e_graph
+
+#only use employment grah in 
+#Literature  ?
+
+
+  
+
+```
+
 
 
 
