@@ -167,6 +167,11 @@ linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
 
 linegraph_phD
 
+##CHI square on new structured data set done in excel
+
+female_new<- read_csv("Females.csv")
+
+chi_female <-chisq.test(female_new)
 
 
 ```
