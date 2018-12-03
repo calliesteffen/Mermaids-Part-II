@@ -132,9 +132,8 @@ smooth <-ggplot(grad_enroll, aes(x =Year, y = )) +
          panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black")) +
 scale_x_continuous(expand = c(0,0), limits = c(1965,2015), breaks = c(1965,1975,1985,1995,2005,2015))+
   scale_y_continuous(expand = c(0,0), limits=c(250000,2000000),breaks=c(250000,500000,750000,1000000,1250000,1500000,1750000,2000000))+
-scale_color_discrete(name = " ") 
-        
-  
+  scale_color_discrete(name = " ")
+
 
 
 smooth
@@ -146,17 +145,29 @@ smooth
 ```
 
 
-
+###2 Females in 4 majors and Phds awarded for 1985 2000 2015
 
 
 ```{r}
 
+SPhd<-read_csv("SPhd.csv")
+
 female_column<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS))+
   geom_col(aes(fill=MAJOR)) +
-  theme_classic()
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0), breaks = seq(1985,2015,by=15)) +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set1") +
+  ylab("Total Female PhDs")
+  
              
              
 female_column
+
+
+###PROPORTIONS for FEMALS COLUMN
+
+
 
 linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   geom_line(aes(fill=MAJOR), size=1) +
@@ -179,6 +190,8 @@ chi_female
 
 ###data:  carmel_chocolate
 ##X-squared = 2073.3, df = 6, p-value < 2.2e-16
+##Null Hypothesis no difference 
+## There is a shift in degrees awarded for females throuout the years 
 
 
 ```
