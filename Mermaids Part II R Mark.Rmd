@@ -1,8 +1,10 @@
 ---
 title: "Mermaids Part II"
-author: "Callie Steffen, Vanessa Guenther, Renee Albreight"
+author: "Callie Steffen, Vanessa Guenther, Renee Albrecht"
 date: "11/26/2018"
-output: html_document
+output:
+  html_document: default
+  word_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -27,6 +29,7 @@ library(hrbrthemes)
 library(babynames)
 library(viridis)
 library(effsize)
+library(stargazer)
 
 ###Reading in csv files
 faculty<-read_csv("faculty.csv")
@@ -150,9 +153,9 @@ smooth
 
 ```{r}
 
-SPhd<-read_csv("SPhd.csv")
+SP<-read_csv("SPhd.csv")
 
-female_column<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS))+
+female_column<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS))+
   geom_col(aes(fill=MAJOR)) +
   scale_y_continuous(expand = c(0,0)) +
   scale_x_continuous(expand = c(0,0), breaks = seq(1985,2015,by=15)) +
@@ -160,8 +163,6 @@ female_column<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS))+
   scale_fill_brewer(palette = "Set1") +
   ylab("Total Female PhDs")
   
-             
-             
 female_column
 
 
@@ -169,7 +170,7 @@ female_column
 
 
 
-linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
+linegraph_phD<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   geom_line(aes(fill=MAJOR), size=1) +
   scale_x_continuous(expand = c(0,0), limits=c(1985,2015), breaks = c(1985,2000,2015))+
   scale_y_continuous(expand = c(0,0), limits=c(150,4650),breaks=c(150,650,1150,1650,2150,2650,3150,3650,4150,4650)) +
@@ -259,36 +260,55 @@ e_graph
 
 ```
 
-
-
-
-
-
 #4 Exploring academic salaries for professors in U.S. colleges.
 
 ```{r}
 
 fac_salary <- read_csv("faculty_salary.csv")
 
-#Linear Model 1
-
+#Linear Model 1 - starting with saturated model 
 salary_lm1 <- lm(Salary ~ Sex + Years_Faculty_Service + Rank + Years_Since_PhD + Discipline, data = fac_salary)
-
-summary(salary_lm1)
-
-plot(salary_lm1)
-
-
+#summary(salary_lm1)
+#plot(salary_lm1)
+#vif(salary_lm1) #VIF for Years_Faculty_Service = 5.9, VIF for Years_Since_PhD = 7.5
+AIC(salary_lm1)
+#AIC = 9093.826
 
 ```
+
 ```{r}
 
-#linear model 2
+#linear model 2 
 salary_lm2 <- lm(Salary ~ Sex + Rank + Years_Since_PhD + Discipline, data = fac_salary)
+#summary(salary_lm2)
+#plot(salary_lm2)
+#vif(salary_lm2) #Years since PhD, VIF = 2.06, all others lower
+AIC(salary_lm2)
+#AIC = 9097.22
 
-summary(salary_lm2)
+```
 
-plot(salary_lm2)
+```{r}
+#linear model 3 
+
+#make prof the reference level
+fac_salary$Rank<- fct_relevel(fac_salary$Rank, "Prof")
+salary_lm3 <- lm(Salary ~ Sex + Rank + Discipline, data = fac_salary)
+summary(salary_lm3)
+#vif(salary_lm3) #all VIF values lower than 1.04 
+AIC(salary_lm3)
+#AIC = 9095.454
+
+### This model seems to be the best 
+
+```
+
+
+
+```{r, results = 'asis'}
+stargazer(salary_lm3, type = "html")
+
+
 
 ```
 
