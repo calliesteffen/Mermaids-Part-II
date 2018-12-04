@@ -151,12 +151,15 @@ smooth
 
 ```{r}
 
+SPhD <- read_csv("SphD.csv")
+
 female_column<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS))+
   geom_col(aes(fill=MAJOR)) +
   theme_classic()
              
              
 female_column
+
 
 linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   geom_line(aes(fill=MAJOR), size=1) +
@@ -213,7 +216,7 @@ wsr_employment
  #EffectSize
 test <- cliff.delta(employment2$Male, employment2$Female)
 test
- # small effect size Cliff's Delta ( 0.213333) ? 0 -> groups are totally overlapping 
+ # small effect size Cliff's Delta ( 0.213333) ? 0 -> small to moderate 
 ```
 Graph
 ```{r}
@@ -222,14 +225,25 @@ e_graph <- ggplot(employment, aes(x = Field, y = Salary ))+
   geom_col(position = "dodge", aes(fill = Gender)) +
   coord_flip()+
   scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
-  labs(title = "Median Salaries (Non-PostDoc Positions) ", y = "Median Salary ($)")+
+  labs(title = "Median Salaries Non-PostDoc Positions in 2015", y = "Median Salary ($)")+
   theme_classic()
 
 e_graph
 
 #only use employment grah in 
 #Literature  ?
+xxxxxxxxxxxx
 
+postdoc_graph <- ggplot(postdoc, aes(x = Field, y = Salary ))+
+  geom_col(position = "dodge", aes(fill = Gender)) +
+  coord_flip()+
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
+  labs(title = "Median Salaries in -PostDoc Positions", x = "Field", y = "Median Salary ($)") +  scale_fill_brewer(palette = "Accent", name = "Gender")+
+  theme_classic()
+
+postdoc_graph
+
+#Literature  ?
 
   
 
