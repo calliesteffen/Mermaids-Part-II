@@ -128,13 +128,14 @@ smooth <-ggplot(grad_enroll, aes(x =Year, y = )) +
   geom_smooth(method=lm, se=TRUE, size=.5, color="blue",aes(y=Total_Females)) +
   geom_smooth(method=lm, se=TRUE, size=.5, color="blue",aes(y=Total_Males))+
   ylab("Number of Graduate Students") +
+  scale_fill_brewer(palette = "Set1") +
   theme (panel.grid.major = element_blank(),
          panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black")) +
 scale_x_continuous(expand = c(0,0), limits = c(1965,2015), breaks = c(1965,1975,1985,1995,2005,2015))+
   scale_y_continuous(expand = c(0,0), limits=c(250000,2000000),breaks=c(250000,500000,750000,1000000,1250000,1500000,1750000,2000000))+
-scale_color_discrete(name = " ") 
-        
+  scale_color_discrete(name = " ")
   
+
 
 
 smooth
@@ -146,21 +147,38 @@ smooth
 ```
 
 
-
+###2 Females in 4 majors and Phds awarded for 1985 2000 2015
 
 
 ```{r}
 
+<<<<<<< HEAD
 SPhD <- read_csv("SphD.csv")
+=======
+SPhd<-read_csv("SPhd.csv")
+>>>>>>> 9e81fc4715aa2345162356efc12953e20aaa6097
 
 female_column<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS))+
   geom_col(aes(fill=MAJOR)) +
-  theme_classic()
+  scale_y_continuous(expand = c(0,0)) +
+  scale_x_continuous(expand = c(0,0), breaks = seq(1985,2015,by=15)) +
+  theme_classic() +
+  scale_fill_brewer(palette = "Set1") +
+  ylab("Total Female PhDs")
+  
              
              
 female_column
 
 
+<<<<<<< HEAD
+=======
+
+###PROPORTIONS for FEMALS COLUMN
+
+
+
+>>>>>>> 9e81fc4715aa2345162356efc12953e20aaa6097
 linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   geom_line(aes(fill=MAJOR), size=1) +
   scale_x_continuous(expand = c(0,0), limits=c(1985,2015), breaks = c(1985,2000,2015))+
@@ -169,8 +187,21 @@ linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
   theme_classic()
 
 
-linegraph_phD
+linegraph_phD 
 
+carmel_chocolate<-read_csv("Chocolate .csv")
+
+##CHI TEST
+
+chi_female<-chisq.test(carmel_chocolate)
+
+chi_female
+ ##Pearson's Chi-squared test
+
+###data:  carmel_chocolate
+##X-squared = 2073.3, df = 6, p-value < 2.2e-16
+##Null Hypothesis no difference 
+## There is a shift in degrees awarded for females throuout the years 
 
 
 ```
