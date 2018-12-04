@@ -131,11 +131,13 @@ smooth <-ggplot(grad_enroll, aes(x =Year, y = )) +
   geom_smooth(method=lm, se=TRUE, size=.5, color="blue",aes(y=Total_Females)) +
   geom_smooth(method=lm, se=TRUE, size=.5, color="blue",aes(y=Total_Males))+
   ylab("Number of Graduate Students") +
+  scale_fill_brewer(palette = "Set1") +
   theme (panel.grid.major = element_blank(),
          panel.grid.minor = element_blank(),panel.background = element_blank(),axis.line = element_line(colour = "black")) +
 scale_x_continuous(expand = c(0,0), limits = c(1965,2015), breaks = c(1965,1975,1985,1995,2005,2015))+
   scale_y_continuous(expand = c(0,0), limits=c(250000,2000000),breaks=c(250000,500000,750000,1000000,1250000,1500000,1750000,2000000))+
   scale_color_discrete(name = " ")
+  
 
 
 
@@ -153,7 +155,15 @@ smooth
 
 ```{r}
 
+<<<<<<< HEAD
 SP<-read_csv("SPhd.csv")
+=======
+<<<<<<< HEAD
+SPhD <- read_csv("SphD.csv")
+=======
+SPhd<-read_csv("SPhd.csv")
+>>>>>>> 9e81fc4715aa2345162356efc12953e20aaa6097
+>>>>>>> 7e3231c289f5510ef711e01301ea6d0c917a2550
 
 female_column<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS))+
   geom_col(aes(fill=MAJOR)) +
@@ -166,11 +176,19 @@ female_column<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS))+
 female_column
 
 
+<<<<<<< HEAD
+=======
+
 ###PROPORTIONS for FEMALS COLUMN
 
 
 
+<<<<<<< HEAD
 linegraph_phD<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
+=======
+>>>>>>> 9e81fc4715aa2345162356efc12953e20aaa6097
+linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
+>>>>>>> 7e3231c289f5510ef711e01301ea6d0c917a2550
   geom_line(aes(fill=MAJOR), size=1) +
   scale_x_continuous(expand = c(0,0), limits=c(1985,2015), breaks = c(1985,2000,2015))+
   scale_y_continuous(expand = c(0,0), limits=c(150,4650),breaks=c(150,650,1150,1650,2150,2650,3150,3650,4150,4650)) +
@@ -238,7 +256,7 @@ wsr_employment
  #EffectSize
 test <- cliff.delta(employment2$Male, employment2$Female)
 test
- # small effect size Cliff's Delta ( 0.213333) ? 0 -> groups are totally overlapping 
+ # small effect size Cliff's Delta ( 0.213333) ? 0 -> small to moderate 
 ```
 Graph
 ```{r}
@@ -247,14 +265,25 @@ e_graph <- ggplot(employment, aes(x = Field, y = Salary ))+
   geom_col(position = "dodge", aes(fill = Gender)) +
   coord_flip()+
   scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
-  labs(title = "Median Salaries (Non-PostDoc Positions) ", y = "Median Salary ($)")+
+  labs(title = "Median Salaries Non-PostDoc Positions in 2015", y = "Median Salary ($)")+
   theme_classic()
 
 e_graph
 
 #only use employment grah in 
 #Literature  ?
+xxxxxxxxxxxx
 
+postdoc_graph <- ggplot(postdoc, aes(x = Field, y = Salary ))+
+  geom_col(position = "dodge", aes(fill = Gender)) +
+  coord_flip()+
+  scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
+  labs(title = "Median Salaries in -PostDoc Positions", x = "Field", y = "Median Salary ($)") +  scale_fill_brewer(palette = "Accent", name = "Gender")+
+  theme_classic()
+
+postdoc_graph
+
+#Literature  ?
 
   
 
