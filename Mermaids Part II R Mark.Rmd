@@ -155,62 +155,6 @@ smooth
 
 ```{r}
 
-<<<<<<< HEAD
-SP<-read_csv("SPhd.csv")
-=======
-<<<<<<< HEAD
-SPhD <- read_csv("SphD.csv")
-=======
-SPhd<-read_csv("SPhd.csv")
->>>>>>> 9e81fc4715aa2345162356efc12953e20aaa6097
->>>>>>> 7e3231c289f5510ef711e01301ea6d0c917a2550
-
-female_column<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS))+
-  geom_col(aes(fill=MAJOR)) +
-  scale_y_continuous(expand = c(0,0)) +
-  scale_x_continuous(expand = c(0,0), breaks = seq(1985,2015,by=15)) +
-  theme_classic() +
-  scale_fill_brewer(palette = "Set1") +
-  ylab("Total Female PhDs")
-  
-female_column
-
-
-<<<<<<< HEAD
-=======
-
-###PROPORTIONS for FEMALS COLUMN
-
-
-
-<<<<<<< HEAD
-linegraph_phD<- ggplot(SP,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
-=======
->>>>>>> 9e81fc4715aa2345162356efc12953e20aaa6097
-linegraph_phD<- ggplot(SPhD,aes(x=Year, y=TOTAL_PHDS, color=MAJOR)) +
->>>>>>> 7e3231c289f5510ef711e01301ea6d0c917a2550
-  geom_line(aes(fill=MAJOR), size=1) +
-  scale_x_continuous(expand = c(0,0), limits=c(1985,2015), breaks = c(1985,2000,2015))+
-  scale_y_continuous(expand = c(0,0), limits=c(150,4650),breaks=c(150,650,1150,1650,2150,2650,3150,3650,4150,4650)) +
-  ylab("Total Female PhDs") +
-  theme_classic()
-
-
-linegraph_phD 
-
-carmel_chocolate<-read_csv("Chocolate .csv")
-
-##CHI TEST
-
-chi_female<-chisq.test(carmel_chocolate)
-
-chi_female
- ##Pearson's Chi-squared test
-
-###data:  carmel_chocolate
-##X-squared = 2073.3, df = 6, p-value < 2.2e-16
-##Null Hypothesis no difference 
-## There is a shift in degrees awarded for females throuout the years 
 
 
 ```
@@ -261,27 +205,27 @@ test
 Graph
 ```{r}
 
-e_graph <- ggplot(employment, aes(x = Field, y = Salary ))+
-  geom_col(position = "dodge", aes(fill = Gender)) +
-  coord_flip()+
-  scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
-  labs(title = "Median Salaries Non-PostDoc Positions in 2015", y = "Median Salary ($)")+
-  theme_classic()
+#e_graph <- ggplot(employment, aes(x = Field, y = Salary ))+
+  #geom_col(position = "dodge", aes(fill = Gender)) +
+  #coord_flip()+
+  #scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
+  #labs(title = "Median Salaries Non-PostDoc Positions in 2015", y = "Median Salary ($)")+
+  #theme_classic()
 
-e_graph
+#e_graph
 
 #only use employment grah in 
 #Literature  ?
-xxxxxxxxxxxx
+#xxxxxxxxxxxx
 
-postdoc_graph <- ggplot(postdoc, aes(x = Field, y = Salary ))+
-  geom_col(position = "dodge", aes(fill = Gender)) +
-  coord_flip()+
-  scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
-  labs(title = "Median Salaries in -PostDoc Positions", x = "Field", y = "Median Salary ($)") +  scale_fill_brewer(palette = "Accent", name = "Gender")+
-  theme_classic()
+#postdoc_graph <- ggplot(postdoc, aes(x = Field, y = Salary ))+
+  #geom_col(position = "dodge", aes(fill = Gender)) +
+  #coord_flip()+
+  #scale_y_continuous(expand = c(0,0), breaks = seq(0, 125000, 25000), limits = c(0,125000)) +
+  #labs(title = "Median Salaries in -PostDoc Positions", x = "Field", y = "Median Salary ($)") +  scale_fill_brewer(palette = "Accent", name = "Gender")+
+  #theme_classic()
 
-postdoc_graph
+#postdoc_graph
 
 #Literature  ?
 
@@ -320,12 +264,12 @@ AIC(salary_lm2)
 ```{r}
 #linear model 3 
 
-#make prof the reference level
-fac_salary$Rank<- fct_relevel(fac_salary$Rank, "Prof")
+#make asstprof the reference level
+fac_salary$Rank<- fct_relevel(fac_salary$Rank, "AsstProf")
 salary_lm3 <- lm(Salary ~ Sex + Rank + Discipline, data = fac_salary)
 summary(salary_lm3)
 #vif(salary_lm3) #all VIF values lower than 1.04 
-AIC(salary_lm3)
+#AIC(salary_lm3)
 #AIC = 9095.454
 
 ### This model seems to be the best 
@@ -335,9 +279,14 @@ AIC(salary_lm3)
 
 
 ```{r, results = 'asis'}
-stargazer(salary_lm3, type = "html")
-
-
+stargazer(salary_lm3, type = "html",
+          covariate.labels = c("Male", "Associate Professor", "Professor","Applied Discipline"))
 
 ```
 
+
+
+
+
+
+#knit knit 
